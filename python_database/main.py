@@ -6,16 +6,26 @@ conn = psycopg2.connect("dbname=names user=postgres password=postgres")
 cur = conn.cursor()
 app = Flask(__name__)
 
-
 @app.get("/name")
 def get_name():
-    _name = request.form['name']
     cur.execute("SELECT * FROM names")
-    return cur.fetchall()
+    result = cur.fetchall()
+    cool_list = []
+    print(result)
+    for i in result:
+        for x in i:
+            print(x)
+            cool_list.append(x)
+    print(cool_list)
+    
+    return result
 
 
-@app.post("/name")
-def create_name():
-    name = request.form['name']
-    cur.execute(f"INSERT INTO names(username) VALUES ('{name}')")
+@app.post("/name/<name>")
+def create_name(name):
+    cur.execute(f"INSERT INTO names(name) VALUES ('{name}')")
+    conn.commit()
     return 'Hi'
+if __name__ == '__main__':
+    print("girl")
+    app.run(debug=True, port=3030)

@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import requests
-
+import json
 app = Flask(__name__)
 
 
@@ -9,7 +9,12 @@ def create():
 
 
 def get_names():
-    return ["Paulo Sergio", "Erickson"]
+    r = requests.get('http://127.0.0.1:3030/name')
+    response = []
+    for i in r.json():
+        for x in i:
+            response.append(x)
+    return response
 
 
 @app.route("/")
@@ -19,4 +24,5 @@ def index():
 
 @app.post('/create/<username>')
 def create_name(username):
-    return username
+    r = requests.post(f'http://127.0.0.1:3030/name/{username}')
+    return "Ok"
