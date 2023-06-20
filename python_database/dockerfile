@@ -4,4 +4,4 @@ COPY requirements.txt requirements.txt
 COPY main.py main.py
 RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 3030
-CMD ["python3", "-m", "flask", "--app", "main", "run", "--host=0.0.0.0"]
+CMD ["python3", "main.py"]

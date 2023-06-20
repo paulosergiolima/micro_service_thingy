@@ -9,7 +9,7 @@ def create():
 
 
 def get_names():
-    r = requests.get('http://127.0.0.1:3030/name')
+    r = requests.get('http://s_database:3030/name')
     response = []
     for i in r.json():
         for x in i:
@@ -24,5 +24,5 @@ def index():
 
 @app.post('/create/<username>')
 def create_name(username):
-    r = requests.post(f'http://127.0.0.1:3030/name/{username}')
+    r = requests.post(f'http://s_database:3030/name/{username}')
     return "Ok"
